@@ -9,7 +9,7 @@ jobs:
       matrix:
         service: [xiaomi-ai-bridge, mi-health-hub]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: {persist-credentials: false, fetch-depth: 0}
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
@@ -30,7 +30,7 @@ jobs:
   secret-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: {persist-credentials: false, fetch-depth: 0}
       - name: Scan committed history
         run: |
@@ -38,7 +38,7 @@ jobs:
   browser:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: {persist-credentials: false}
       - uses: actions/setup-node@v4
         with: {node-version: "22"}

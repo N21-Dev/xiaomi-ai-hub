@@ -1,0 +1,55 @@
+name: Test and audit
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [xiaomi-ai-bridge, mi-health-hub]
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false, fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python3 ops/audit_public.py
+      - run: python3 -m unittest discover -s tests -q
+      - run: python -m pip install --upgrade pip setuptools wheel
+      - run: python -m pip install ./services/${{ matrix.service }} pytest pytest-asyncio
+      - if: matrix.service == 'xiaomi-ai-bridge'
+        run: python -m unittest discover -s services/xiaomi-ai-bridge/tests -q
+      - if: matrix.service == 'mi-health-hub'
+        run: python -m pytest -q services/mi-health-hub/tests
+        env:
+          MI_DB_PATH: /tmp/health-tests/health.db
+          MI_RAW_DIR: /tmp/health-tests/raw
+          MI_OUTPUT_DIR: /tmp/health-tests/output
+          MI_BACKUP_DIR: /tmp/health-tests/backup
+          MI_AI_AUTO_AFTER_SYNC: "false"
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false, fetch-depth: 0}
+      - name: Scan committed history
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/repo:ro" ghcr.io/gitleaks/gitleaks:v8.30.1 git /repo --redact=100 --log-opts=--all
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - name: Install isolated browser tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/hub-browser" playwright@1.56.0 @axe-core/playwright@4.10.2
+          "$RUNNER_TEMP/hub-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify login and health access with synthetic requests
+        env:
+          HUB_PLAYWRIGHT_MODULE: ${{ runner.temp }}/hub-browser/node_modules/playwright
+          HUB_AXE_MODULE: ${{ runner.temp }}/hub-browser/node_modules/@axe-core/playwright
+        run: |
+          node services/xiaomi-ai-bridge/tools/verify_panel_auth_browser.cjs
+          node services/mi-health-hub/tools/verify_access_browser.cjs

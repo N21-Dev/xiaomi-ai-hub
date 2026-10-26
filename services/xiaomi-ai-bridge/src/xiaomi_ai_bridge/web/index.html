@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#172f2c" media="(max-width: 1100px)">
+  <meta name="theme-color" content="#f5f6f2">
+  <title>AI 中枢 · Xiaomi Home Platform</title>
+  <meta name="panel-csrf" content="__PANEL_CSRF__">
+  <meta name="panel-user" content="__PANEL_USER__">
+  <link rel="stylesheet" href="/app.css?v=__ASSET_VERSION__">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳到页面内容</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#overview" aria-label="AI 中枢首页">
+        <svg class="brand-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 8-7 8 7v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9Z"/><path d="M9 16V12m3 6v-8m3 6v-4"/></svg>
+        <span><strong>AI 中枢</strong><small>AI HOME PLATFORM</small></span>
+      </a>
+      <nav class="tabs" aria-label="页面导航">
+        <span class="nav-label">工作空间</span>
+        <button type="button" class="tab active" data-view="overview" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>家庭总览</span></button>
+        <button type="button" class="tab" data-view="home"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V10Z"/><path d="M9 21v-8h6v8"/></svg><span>米家设备</span></button>
+        <button type="button" class="tab" data-view="data"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16M6 15V9m6 6V4m6 11v-5"/></svg><span>数据中枢</span></button>
+        <button type="button" class="tab" data-view="health"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/><path d="M5 11h4l2-4 3 8 2-4h3"/></svg><span>健康联接</span></button>
+        <button type="button" class="tab" data-view="chat"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/><path d="M8 11h8"/></svg><span>AI助手</span></button>
+        <span class="nav-label nav-label-settings">管理与设置</span>
+        <button type="button" class="tab" data-view="connection"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 15 6-6M8 17l-1 1a4.2 4.2 0 0 1-6-6l4-4a4.2 4.2 0 0 1 6 0m2-1 1-1a4.2 4.2 0 0 1 6 6l-4 4a4.2 4.2 0 0 1-6 0" transform="translate(1 0)"/></svg><span>连接设置</span></button>
+        <button type="button" class="tab" data-view="services"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3Z"/></svg><span>模型中枢</span></button>
+        <button type="button" class="tab" data-view="preferences"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h5m4 0h7M4 17h9m4 0h3"/><circle cx="11" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg><span>偏好设置</span></button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="panel-account" id="panel-account" hidden><span><small>管理员</small><strong id="panel-account-name"></strong></span><button type="button" id="panel-logout">退出登录</button></div>
+        <div class="sidebar-caption"><span>让日常，自在相连。</span><small>声音 · 设备 · 数据</small></div>
+        <div class="toolbar">
+          <button class="icon-button" id="refresh" title="刷新状态" aria-label="刷新状态">↻</button>
+          <button class="command-button" id="reconnect" type="button" aria-label="立即重连音箱服务"><span aria-hidden="true">⤴</span> 重连</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="workspace-bar"><span><span class="workspace-symbol" aria-hidden="true">⌂</span> 我的家庭 <span class="workspace-divider">/</span> <span id="workspace-current">家庭总览</span></span><span class="workspace-end">HOME WORKSPACE</span></div>
+  <main id="main-content" tabindex="-1">
+    <section class="view active" id="view-overview">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">运行状态</p>
+          <h1>家的一切，尽在掌握。</h1>
+          <p class="page-description">从一声唤醒，到每一次连接。查看家庭设备与数据的此刻状态。</p>
+        </div>
+        <div class="live-indicator"><i id="live-dot"></i><span id="live-label">正在读取</span></div>
+      </div>
+
+      <div class="alert" id="error-alert" hidden>
+        <strong>当前阻塞</strong>
+        <span id="error-text"></span>
+      </div>
+
+      <div class="kpi-grid">
+        <article class="kpi" data-tone="cyan">
+          <div class="kpi-label"><i></i>桥接服务</div>
+          <strong class="kpi-value" id="service-value">读取中</strong>
+          <span class="kpi-note" id="service-note">等待状态</span>
+        </article>
+        <article class="kpi" data-tone="green">
+          <div class="kpi-label"><i></i>小米云</div>
+          <strong class="kpi-value" id="xiaomi-value">读取中</strong>
+          <span class="kpi-note" id="xiaomi-note">账号会话</span>
+        </article>
+        <article class="kpi" data-tone="amber">
+          <div class="kpi-label"><i></i>目标音箱</div>
+          <strong class="kpi-value" id="device-value">读取中</strong>
+          <span class="kpi-note" id="device-note">设备型号</span>
+        </article>
+        <article class="kpi" data-tone="coral">
+          <div class="kpi-label"><i></i>AI 服务</div>
+          <strong class="kpi-value" id="ai-value">读取中</strong>
+          <span class="kpi-note" id="ai-note">模型配置</span>
+        </article>
+      </div>
+
+      <section class="overview-snapshot" aria-label="家庭状态快照">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">现在家里</p><h2>家庭状态快照</h2></div>
+          <span id="overview-data-note" class="overview-snapshot-note">正在汇总数据源</span>
+        </div>
+        <div class="overview-snapshot-grid">
+          <article class="overview-snapshot-item" data-tone="green">
+            <span>正常数据源</span><strong id="overview-online-count">—</strong><small>当前可用并有近期读数</small>
+          </article>
+          <article class="overview-snapshot-item" data-tone="amber">
+            <span>待更新数据源</span><strong id="overview-stale-count">—</strong><small id="overview-attention-note">没有待处理项</small>
+          </article>
+          <article class="overview-snapshot-item" data-tone="cyan">
+            <span>环境数据源</span><strong id="overview-environment-count">—</strong><small>温湿度、空气与传感器</small>
+          </article>
+          <article class="overview-snapshot-item" data-tone="accent">
+            <span>最近有效采样</span><strong id="overview-last-sample">—</strong><small>按实际字段时间计算</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel environment-overview">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">家里的环境</p><h2>温湿度与空气</h2></div>
+          <button class="text-button" data-go="data">查看数据与趋势 →</button>
+        </div>
+        <div id="overview-environment" class="environment-summary"><p class="hub-history-empty">正在读取家庭环境…</p></div>
+      </section>
+
+      <section class="pipeline-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">实时链路</p>
+            <h2>从语音到回答</h2>
+          </div>
+          <span class="mono" id="last-poll">尚未轮询</span>
+        </div>
+        <div class="pipeline" role="region" tabindex="0" aria-label="桥接处理链路">
+          <div class="pipe-node" id="pipe-speaker"><span>01</span><strong>小爱音箱</strong><small>等待唤醒</small></div>
+          <i class="pipe-arrow">→</i>
+          <div class="pipe-node" id="pipe-cloud"><span>02</span><strong>小米云</strong><small>语音识别</small></div>
+          <i class="pipe-arrow">→</i>
+          <div class="pipe-node" id="pipe-bridge"><span>03</span><strong>本地桥接</strong><small>关键词路由</small></div>
+          <i class="pipe-arrow">→</i>
+          <div class="pipe-node" id="pipe-ai"><span>04</span><strong>AI 模型</strong><small>生成回答</small></div>
+          <i class="pipe-arrow">→</i>
+          <div class="pipe-node" id="pipe-tts"><span>05</span><strong>音箱播报</strong><small>MiNA TTS</small></div>
+        </div>
+      </section>
+
+      <div class="split-grid">
+        <section class="panel">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">连接摘要</p><h2>账号与设备</h2></div>
+            <button class="text-button" data-go="connection">管理连接 →</button>
+          </div>
+          <dl class="summary-list">
+            <div><dt>小米账号</dt><dd id="summary-user">—</dd></div>
+            <div><dt>passToken</dt><dd id="summary-pass">—</dd></div>
+            <div><dt>cUserId</dt><dd id="summary-cuser">—</dd></div>
+            <div><dt>serviceToken</dt><dd id="summary-service-token">—</dd></div>
+            <div><dt>硬件筛选</dt><dd id="summary-hardware">—</dd></div>
+          </dl>
+        </section>
+
+        <section class="panel speaker-visual-panel">
+          <div>
+            <p class="eyebrow">对话入口</p>
+            <h2>唤醒后说“请问”</h2>
+            <dl class="mini-facts">
+              <div><dt>连续对话</dt><dd id="continuous-value">关闭</dd></div>
+              <div><dt>最近回答</dt><dd id="last-answer">暂无</dd></div>
+              <div><dt>模型耗时</dt><dd id="last-ai-latency">暂无</dd></div>
+              <div><dt>轮次打断</dt><dd id="cancelled-turns">0</dd></div>
+              <div><dt>原生暂停</dt><dd id="native-pauses">0</dd></div>
+            </dl>
+          </div>
+          <img src="/speaker.png" alt="小爱音箱示意图">
+        </section>
+      </div>
+    </section>
+
+    <section class="view" id="view-connection">
+      <div class="page-head">
+        <div><p class="eyebrow">账号与硬件</p><h1>连接设置</h1><p class="page-description">连接你的账号与音箱，让家庭服务从这里开始。</p></div>
+        <span class="privacy-badge">敏感值不回显</span>
+      </div>
+
+      <form id="connection-form">
+        <section class="settings-band">
+          <div class="settings-title">
+            <span>01</span>
+            <div><h2>小米云会话</h2><p id="credential-state">读取中</p></div>
+          </div>
+          <div class="form-grid">
+            <label><span>账号数字 ID</span><input id="user-id" name="user_id" inputmode="numeric" placeholder="保持现有账号"></label>
+            <label class="wide"><span>passToken</span><input id="pass-token" name="pass_token" type="password" autocomplete="new-password" placeholder="保持现有凭据"></label>
+          </div>
+          <div class="login-actions">
+            <button class="secondary-button" type="button" id="xiaomi-web-login">打开小米网页登录</button>
+            <span id="xiaomi-login-state">未启动</span>
+          </div>
+          <details class="advanced">
+            <summary>高级会话字段</summary>
+            <div class="form-grid advanced-grid">
+              <label><span>cUserId</span><input id="c-user-id" name="c_user_id" type="password" autocomplete="off" placeholder="保持现有值"></label>
+              <label><span>serviceToken</span><input id="service-token" name="service_token" type="password" autocomplete="off" placeholder="可直接绕过 SSO"></label>
+              <label><span>账号 deviceId</span><input id="account-device-id" name="account_device_id" autocomplete="off" placeholder="android_xxx"></label>
+            </div>
+          </details>
+        </section>
+
+        <section class="settings-band">
+          <div class="settings-title">
+            <span>02</span>
+            <div><h2>目标音箱</h2><p>选择唯一匹配的设备</p></div>
+          </div>
+          <div class="form-grid three">
+            <label><span>硬件型号</span><input id="mi-hardware" name="mi_hardware" placeholder="LX05"></label>
+            <label><span>设备 DID</span><input id="mi-did" name="mi_did" placeholder="可选"></label>
+            <label><span>设备名称</span><input id="mi-device-name" name="mi_device_name" placeholder="可选"></label>
+          </div>
+        </section>
+
+        <div class="form-actions">
+          <button class="primary-button" type="submit" id="save-connection">保存并重连</button>
+          <button class="secondary-button" type="button" id="clear-form">清空未保存内容</button>
+          <span id="save-result" class="action-result"></span>
+        </div>
+      </form>
+    </section>
+
+    <section class="view" id="view-services">
+      <div class="page-head console-page-head">
+        <div><p class="eyebrow">AI GATEWAY / 控制台</p><h1>模型中枢<span class="heading-dot" aria-hidden="true">.</span></h1><p class="page-description">多个上游 API 收在这一条入口后面，在这里集中管理、一键切换。</p></div>
+        <div class="console-head-actions">
+          <span class="status-pill" id="model-gateway-status">读取中</span>
+          <button class="secondary-button" id="console-refresh" type="button">刷新</button>
+          <button class="primary-button" id="gateway-connect" type="button"><span aria-hidden="true">↗</span> 接入客户端</button>
+        </div>
+      </div>
+
+      <nav class="console-nav" role="tablist" aria-label="模型中枢分区">
+        <button class="console-nav-item active" type="button" role="tab" id="csnav-overview" aria-selected="true" aria-controls="csview-overview" data-cs-view="overview">概览</button>
+        <button class="console-nav-item" type="button" role="tab" id="csnav-channels" aria-selected="false" aria-controls="csview-channels" data-cs-view="channels">上游渠道<span class="console-nav-count" id="csnav-channel-count">—</span></button>
+        <button class="console-nav-item" type="button" role="tab" id="csnav-models" aria-selected="false" aria-controls="csview-models" data-cs-view="models">模型<span class="console-nav-count" id="csnav-model-count">—</span></button>
+        <button class="console-nav-item" type="button" role="tab" id="csnav-logs" aria-selected="false" aria-controls="csview-logs" data-cs-view="logs">请求日志</button>
+        <button class="console-nav-item" type="button" role="tab" id="csnav-usage" aria-selected="false" aria-controls="csview-usage" data-cs-view="usage">用量统计</button>
+      </nav>
+
+      <div class="console-view" id="csview-overview" role="tabpanel" aria-labelledby="csnav-overview">
+        <section class="cs-metrics" aria-label="网关概览">
+          <article class="cs-metric"><span>上游渠道</span><strong id="console-provider-count">—</strong><small id="console-provider-note">读取中</small></article>
+          <article class="cs-metric"><span>可用模型</span><strong id="console-model-count">—</strong><small>可按模型 ID 直接调用</small></article>
+          <article class="cs-metric"><span id="console-requests-label">近 24h 请求</span><strong id="console-request-count">—</strong><small id="console-request-note">读取中</small></article>
+          <article class="cs-metric"><span>成功率</span><strong id="overview-success">—</strong><small id="overview-success-note">近 24 小时</small></article>
+        </section>
+
+        <div class="cs-split">
+          <section class="cs-card" aria-labelledby="cs-endpoint-title">
+            <div class="cs-card-head">
+              <div><p class="console-section-kicker">ONE ENDPOINT / 统一入口</p><h2 id="cs-endpoint-title">客户端只配这一个地址</h2></div>
+              <span class="gateway-auth" id="gateway-token-state">读取鉴权状态</span>
+            </div>
+            <p class="cs-card-note">下面的渠道都收在这一条入口后面。客户端配一次，之后只在本页切换，不用再改任何配置。</p>
+            <div class="cs-endpoint-row">
+              <div class="cs-endpoint-meta"><span class="endpoint-label">OpenAI / Codex</span><small>Chat Completions &amp; Responses</small></div>
+              <code id="gateway-openai-base">—</code>
+              <button class="icon-button small-icon" type="button" data-copy="gateway-openai-base" aria-label="复制 OpenAI Base URL"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg></button>
+            </div>
+            <div class="cs-endpoint-row">
+              <div class="cs-endpoint-meta"><span class="endpoint-label">Anthropic / Claude Code</span><small>Messages</small></div>
+              <code id="gateway-anthropic-base">—</code>
+              <button class="icon-button small-icon" type="button" data-copy="gateway-anthropic-base" aria-label="复制 Anthropic Base URL"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg></button>
+            </div>
+            <dl class="cs-facts">
+              <div><dt>API Key</dt><dd id="cs-endpoint-key">—</dd></div>
+              <div><dt>模型名</dt><dd><code>hub-active</code> <span>跟随本页当前路由</span></dd></div>
+              <div><dt>指定模型</dt><dd>填具体模型 ID 即可绕过切换</dd></div>
+            </dl>
+            <button class="secondary-button" id="gateway-connect-inline" type="button">查看完整接入配置 →</button>
+          </section>
+
+          <section class="cs-card cs-card-accent" aria-labelledby="cs-default-title">
+            <div class="cs-card-head">
+              <div><p class="console-section-kicker">DEFAULT MODEL / 默认模型</p><h2 id="cs-default-title">当前正在服务</h2></div>
+              <span class="gateway-live">热切换</span>
+            </div>
+            <p class="cs-active-model" id="gateway-active-model">—</p>
+            <p class="cs-active-provider" id="gateway-active-provider">—</p>
+            <p class="cs-active-provider" id="gateway-fallback-chain">备用模型：未设置</p>
+            <div class="cs-default-switch">
+              <label class="cs-default-kicker" for="default-model-select">切换到任意已启用渠道的模型</label>
+              <div class="cs-default-current">
+                <select class="console-input" id="default-model-select" aria-label="选择默认模型"></select>
+                <button class="primary-button" id="default-model-apply" type="button" disabled>设为默认</button>
+              </div>
+            </div>
+            <output class="route-result cs-default-result" id="default-model-result" role="status"></output>
+            <button class="gateway-jump" id="gateway-locate-active" type="button">在渠道列表里查看 <span aria-hidden="true">→</span></button>
+            <p class="cs-card-note">所有把模型名填成 <code>hub-active</code> 的客户端都跟着它走，小爱音箱和控制台的「AI助手」也默认跟随。<span class="gateway-compat"><span aria-hidden="true">⇄</span> 双向协议转换 · 流式 · 工具调用 · 图片</span></p>
+          </section>
+        </div>
+
+        <section class="cs-card" aria-labelledby="cs-roles-title">
+          <div class="cs-card-head">
+            <div><p class="console-section-kicker">ASSISTANT / 助手</p><h2 id="cs-roles-title">小爱音箱用什么模型</h2><p class="cs-card-note">小爱音箱和控制台的「AI助手」是<strong>同一个助手</strong>（同一套工具、同一份身份），只是入口不同。默认都用上面的默认模型；这里可以单独给音箱指定一个，比如换更快的。</p></div>
+          </div>
+          <div class="cs-role-list" id="role-list"></div>
+        </section>
+
+        <section class="cs-card" aria-labelledby="route-board-title">
+          <div class="cs-card-head">
+            <div><p class="console-section-kicker">ROUTE SWITCHBOARD / 路由切换</p><h2 id="route-board-title">按渠道浏览、编辑与新增。</h2><p class="cs-card-note">选择只是预览，点「启用此路由」才会生效。</p></div>
+            <button class="secondary-button" id="route-config-new" type="button">＋ 新增渠道</button>
+          </div>
+          <fieldset class="route-options"><legend class="visually-hidden">选择 API 路由配置</legend><div class="route-configs" id="route-configs"></div></fieldset>
+          <p class="console-empty" id="route-config-empty" hidden>还没有渠道。点击「新增渠道」添加地址、密钥和模型。</p>
+          <div class="route-apply-bar">
+            <div class="route-preview"><span class="route-preview-label" id="route-preview-label">当前生效</span><div><code>hub-active</code><span aria-hidden="true">→</span><strong id="route-preview-provider">—</strong><span aria-hidden="true">→</span><code id="route-preview-model">—</code></div><small id="route-preview-note">音箱与使用 hub-active 的客户端会跟随切换。</small></div>
+            <button class="primary-button" id="route-activate" type="button" disabled>当前已启用</button>
+          </div>
+          <output class="route-result" id="route-result" role="status"></output>
+        </section>
+
+        <section class="cs-card" aria-labelledby="cs-health-title">
+          <div class="cs-card-head">
+            <div><p class="console-section-kicker">UPSTREAM HEALTH / 上游健康</p><h2 id="cs-health-title">渠道速览</h2></div>
+            <button class="secondary-button" id="overview-test-all" type="button">测试全部渠道</button>
+          </div>
+          <div class="cs-table-wrap">
+            <table class="cs-table cs-channel-table">
+              <thead><tr><th class="col-status">状态</th><th>渠道</th><th>Base URL</th><th class="num">模型</th><th>最近测试</th><th class="col-ops">操作</th></tr></thead>
+              <tbody id="overview-channel-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="cs-card" aria-labelledby="cs-trend-title">
+          <div class="cs-card-head">
+            <div><p class="console-section-kicker">TRAFFIC / 流量</p><h2 id="cs-trend-title">近 24 小时请求</h2></div>
+            <button class="secondary-button" type="button" data-cs-goto="usage">用量统计 →</button>
+          </div>
+          <div class="usage-chart" id="overview-chart" tabindex="0" aria-label="近 24 小时请求量"></div>
+        </section>
+      </div>
+
+      <div class="console-view" id="csview-channels" role="tabpanel" aria-labelledby="csnav-channels" hidden>
+        <div class="cs-card">
+          <div class="cs-toolbar">
+            <input class="console-input" id="channel-search" type="search" maxlength="80" placeholder="搜索渠道名、地址或模型…" aria-label="搜索渠道">
+            <button class="secondary-button" id="channel-refresh" type="button">刷新</button>
+            <span class="cs-toolbar-spacer"></span>
+            <button class="primary-button" id="provider-new" type="button">＋ 新增渠道</button>
+          </div>
+          <div class="cs-table-wrap">
+            <table class="cs-table cs-channel-table">
+              <thead><tr><th class="col-status">状态</th><th>渠道名</th><th>协议</th><th>Base URL</th><th class="num">模型</th><th>最近测试</th><th class="col-ops">操作</th></tr></thead>
+              <tbody id="channel-table-body"></tbody>
+            </table>
+            <p class="console-empty" id="channel-empty" hidden>还没有渠道。点击「新增渠道」接入第一个上游 API。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="console-view" id="csview-models" role="tabpanel" aria-labelledby="csnav-models" hidden>
+        <div class="cs-card">
+          <div class="cs-toolbar">
+            <label class="cs-inline-field"><span>渠道</span><select class="console-input" id="model-channel" aria-label="按渠道筛选"></select></label>
+            <input class="console-input" id="model-search" type="search" maxlength="120" placeholder="搜索模型 ID…" aria-label="搜索模型">
+            <select class="console-input" id="model-filter" aria-label="按测试状态筛选">
+              <option value="all">全部状态</option>
+              <option value="active">当前使用</option>
+              <option value="passed">测试通过</option>
+              <option value="failed">测试失败</option>
+              <option value="untested">尚未测试</option>
+            </select>
+            <span class="cs-toolbar-spacer"></span>
+            <button class="secondary-button" id="model-test-selected" type="button" disabled>测试选中</button>
+            <button class="secondary-button" id="model-test-all" type="button">测试筛选结果</button>
+            <button class="secondary-button danger-button" id="model-remove-selected" type="button" disabled>删除选中</button>
+            <button class="primary-button" id="model-add" type="button">＋ 添加模型</button>
+          </div>
+          <div class="console-list-caption"><p class="console-selection" id="model-selection">未选中模型。</p><span id="model-visible-count"></span></div>
+          <div class="cs-table-wrap">
+            <table class="cs-table cs-model-table">
+              <thead><tr><th class="col-check"><input type="checkbox" id="model-select-all" aria-label="全选当前列表"></th><th>模型 ID</th><th>渠道</th><th>生成参数</th><th>最近测试</th><th class="col-ops">操作</th></tr></thead>
+              <tbody id="model-table-body"></tbody>
+            </table>
+            <p class="console-empty" id="model-table-empty" hidden>没有匹配的模型。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="console-view" id="csview-logs" role="tabpanel" aria-labelledby="csnav-logs" hidden>
+        <div class="cs-card">
+          <div class="cs-toolbar">
+            <label class="cs-inline-field"><span>渠道</span><select class="console-input" id="log-filter-provider"><option value="">全部渠道</option></select></label>
+            <label class="cs-inline-field"><span>模型</span><select class="console-input" id="log-filter-model"><option value="">全部模型</option></select></label>
+            <label class="console-check"><input type="checkbox" id="log-filter-errors">只看失败</label>
+            <span class="cs-toolbar-spacer"></span>
+            <button class="secondary-button" id="log-refresh" type="button">刷新日志</button>
+            <button class="secondary-button danger-button" id="log-clear" type="button">清空日志</button>
+          </div>
+          <p class="hub-muted" id="log-summary">打开此页后读取网关请求记录。</p>
+          <div class="cs-table-wrap">
+            <table class="cs-table cs-log-table">
+              <thead><tr><th>时间</th><th>渠道</th><th>模型</th><th>入口</th><th class="num">状态</th><th class="num">耗时</th><th class="num">Tokens</th><th>说明</th></tr></thead>
+              <tbody id="log-table-body"></tbody>
+            </table>
+            <p class="console-empty" id="log-empty" hidden>这个范围内还没有请求记录。</p>
+          </div>
+          <div class="console-pager">
+            <button class="secondary-button" id="log-prev" type="button">上一页</button>
+            <span id="log-page">第 1 页</span>
+            <button class="secondary-button" id="log-next" type="button">下一页</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="console-view" id="csview-usage" role="tabpanel" aria-labelledby="csnav-usage" hidden>
+        <div class="cs-card">
+          <div class="cs-toolbar">
+            <label class="cs-inline-field"><span>时间范围</span><select class="console-input" id="usage-hours"><option value="1">最近 1 小时</option><option value="24" selected>最近 24 小时</option><option value="168">最近 7 天</option><option value="720">最近 30 天</option></select></label>
+            <span class="cs-toolbar-spacer"></span>
+            <button class="secondary-button" id="usage-refresh" type="button">刷新统计</button>
+          </div>
+          <div class="usage-kpis">
+            <div><span>请求总数</span><strong id="usage-total">—</strong></div>
+            <div><span>成功率</span><strong id="usage-success">—</strong></div>
+            <div><span>平均耗时</span><strong id="usage-latency">—</strong></div>
+            <div><span>P95 耗时</span><strong id="usage-p95">—</strong></div>
+            <div><span>Token 用量</span><strong id="usage-tokens">—</strong></div>
+          </div>
+          <div class="usage-chart" id="usage-chart" tabindex="0" aria-label="请求量分布"></div>
+          <div class="usage-columns">
+            <section><h3>按模型</h3><div class="usage-list" id="usage-models"></div></section>
+            <section><h3>按渠道</h3><div class="usage-list" id="usage-providers"></div></section>
+            <section><h3>失败原因 TOP</h3><div class="usage-list" id="usage-errors"></div></section>
+          </div>
+        </div>
+      </div>
+
+      <dialog class="console-drawer" id="console-drawer" aria-labelledby="drawer-model-name" hidden>
+        <div class="drawer-head">
+          <div>
+            <p class="eyebrow">模型设置</p>
+            <h2 id="drawer-model-name">—</h2>
+            <p class="console-provider-meta" id="drawer-model-provider">—</p>
+          </div>
+          <button class="icon-button" id="drawer-close" type="button" aria-label="关闭模型设置">×</button>
+        </div>
+        <form id="model-settings-form" class="drawer-form">
+          <label><span>思考等级</span><select id="model-settings-reasoning"><option value="auto">自动</option><option value="off">关闭</option><option value="low">低</option><option value="medium">中</option><option value="high">高</option></select></label>
+          <label><span>上下文窗口（Token）</span><input id="model-settings-context" type="number" min="1024" max="2000000" step="1"><small>记录模型能力，实际限制以提供方为准。</small></label>
+          <label><span>最大输出 Token</span><input id="model-settings-output" type="number" min="64" max="128000" step="1"></label>
+          <label><span>温度</span><input id="model-settings-temperature" type="number" min="0" max="2" step="0.1"></label>
+          <label class="drawer-check"><input id="model-settings-multimodal" type="checkbox">启用多模态（图片）输入</label>
+          <div class="drawer-actions">
+            <button class="primary-button" type="submit">保存设置</button>
+            <button class="secondary-button" id="drawer-test" type="button">测试模型</button>
+          </div>
+          <output id="model-settings-result" class="action-result"></output>
+        </form>
+        <dl class="drawer-facts">
+          <div><dt>最近测试</dt><dd id="drawer-probe">尚未测试</dd></div>
+          <div><dt id="drawer-usage-label">近 24h 请求</dt><dd id="drawer-model-usage">—</dd></div>
+        </dl>
+      </dialog>
+
+      <details class="home-section console-legacy" id="console-legacy">
+        <summary>服务自检 <span>OpenAI 兼容服务与音箱 TTS 测试</span></summary>
+        <div class="service-layout">
+        <section class="panel service-panel">
+          <div class="service-icon ai-icon">AI</div>
+          <div class="service-copy">
+            <span class="status-pill" id="ai-status-pill">读取中</span>
+            <h2>OpenAI 兼容服务</h2>
+            <dl class="summary-list">
+              <div><dt>接口</dt><dd id="service-ai-url">—</dd></div>
+              <div><dt>模型</dt><dd id="service-ai-model">—</dd></div>
+              <div><dt>API Key</dt><dd id="service-ai-key">—</dd></div>
+            </dl>
+            <button class="primary-button" id="test-ai">测试 AI</button>
+            <output class="test-output" id="ai-test-output">尚未测试</output>
+          </div>
+        </section>
+
+        <section class="panel service-panel">
+          <div class="service-icon voice-icon">▶</div>
+          <div class="service-copy">
+            <span class="status-pill" id="tts-status-pill">等待设备</span>
+            <h2>小爱音箱 TTS</h2>
+            <label class="tts-field"><span>测试文本</span><input id="tts-text" value="AI 音箱桥接服务已经连接。" maxlength="200"></label>
+            <button class="primary-button" id="test-tts">播放测试</button>
+            <output class="test-output" id="tts-test-output">尚未测试</output>
+          </div>
+        </section>
+        </div>
+      </details>
+    </section>
+
+    <section class="view" id="view-home">
+      <div class="page-head">
+        <div><p class="eyebrow">一个家 · 随处掌控</p><h1>我的设备</h1><p class="page-description">家中设备，一处掌控。按房间探索和管理你的智能生活。</p></div>
+        <div class="home-head-actions">
+          <span class="status-pill" id="home-auth-pill">未连接</span>
+          <button class="secondary-button" id="home-authorize">米家授权</button>
+          <button class="primary-button" id="home-discover">发现设备</button>
+        </div>
+      </div>
+
+      <section class="home-section">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">全屋设备与服务</p><h2>家中设备 <span class="device-count" id="home-device-count">0 台</span></h2></div>
+          <div class="home-category-tabs" role="group" aria-label="筛选设备类型" id="home-category-tabs">
+            <button type="button" class="selected" data-home-category="all" aria-pressed="true">全部</button>
+          </div>
+        </div>
+        <div class="home-room-toolbar">
+          <label for="home-room-filter">家庭与房间</label>
+          <select id="home-room-filter" aria-label="筛选家庭与房间"><option value="all">全部家庭与房间</option></select>
+          <button type="button" class="secondary-button" id="home-layout-refresh">同步家庭房间</button>
+          <span id="home-layout-message" role="status"></span>
+        </div>
+        <div class="home-device-grid" id="home-device-list"></div>
+        <div class="empty-state" id="home-empty"><strong>还没有设备</strong><span>点击“发现设备”，然后在设备管理中开启授权。</span></div>
+        <div class="empty-state" id="home-filter-empty" hidden>这个分类暂时没有设备</div>
+      </section>
+
+      <section class="home-device-detail" id="home-device-detail" hidden aria-labelledby="home-detail-name">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">设备控制</p><h2 id="home-detail-name">设备详情</h2></div>
+          <div class="hub-detail-actions">
+            <button class="secondary-button" id="home-detail-refresh" type="button">刷新状态</button>
+            <button class="icon-button" id="home-detail-close" type="button" aria-label="关闭设备控制">×</button>
+          </div>
+        </div>
+        <div class="home-detail-layout">
+          <div class="home-device-hero">
+            <div id="home-detail-icon" class="home-hero-icon" aria-hidden="true"></div>
+            <span class="status-pill" id="home-detail-status">等待读取</span>
+            <p id="home-detail-time" class="home-detail-time">暂无读数</p>
+            <button class="text-button" id="home-detail-history" type="button" hidden>查看数据与趋势 →</button>
+            <button class="text-button" id="home-detail-health" type="button" hidden>查看账号健康数据 →</button>
+          </div>
+          <div>
+            <div id="home-local-source" class="router-source-panel" hidden></div>
+            <div id="home-detail-metrics" class="resource-metrics"></div>
+            <div id="home-control-list" class="home-controls"></div>
+            <p id="home-detail-message" class="home-control-message" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+        <section id="home-extensions" class="home-extensions" aria-label="专属设备控制" hidden></section>
+        <p id="home-detail-support" class="home-support-note"></p>
+        <section id="home-capabilities" class="home-capabilities" aria-label="完整设备能力" hidden></section>
+      </section>
+
+      <div class="home-lower-grid">
+        <details class="home-section home-management" id="home-management">
+          <summary>设备管理 <span>授权、名称与连接信息</span></summary>
+          <div class="home-meta">
+            <span>已接入类别：<strong id="home-safe-categories">—</strong></span>
+            <span>语音单轮上限：<strong id="home-call-limit">3 次</strong></span>
+            <span>最近发现：<strong id="home-discovered-at">暂无</strong></span>
+          </div>
+          <div class="device-list" id="home-management-list"></div>
+        </details>
+        <details class="home-section home-audit">
+          <summary>操作记录 <span>查看执行结果</span></summary>
+          <div class="audit-list" id="home-audit-list"></div>
+          <div class="empty-state compact-empty" id="home-audit-empty">暂无调用记录</div>
+        </details>
+      </div>
+
+      <div hidden>
+        <section class="home-section">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">安全验证</p><h2>读取与测试</h2></div>
+          </div>
+          <div class="home-test-form">
+            <label><span>设备</span><select id="home-test-device"></select></label>
+            <label><span>动作</span><select id="home-test-action"></select></label>
+            <label><span>值</span><input id="home-test-value" placeholder="设置动作时填写"></label>
+            <button class="secondary-button" id="home-test-run">执行</button>
+          </div>
+          <div class="test-output" id="home-test-output" role="status">选择设备并读取状态，即可查看数据。</div>
+        </section>
+
+      </div>
+    </section>
+
+    <section class="view" id="view-data">
+      <div class="page-head">
+        <div><p class="eyebrow">一个中枢 · 随处查看</p><h1>家庭数据</h1><p class="page-description">把分散的设备读数，汇成看得见的日常。</p></div>
+        <div class="hub-head-status">
+          <span class="status-pill" id="hub-stream-pill" aria-live="polite">实时流连接中</span>
+          <button class="secondary-button" id="hub-sample-refresh" type="button">更新设备数据</button>
+        </div>
+      </div>
+
+      <div class="hub-sampling-bar" role="status"><span id="hub-sampling-status">正在读取采样状态…</span><time id="hub-last-sample">尚无采样</time></div>
+
+      <div class="hub-kpis">
+        <div><span>数据源</span><strong id="hub-resource-count">0</strong></div>
+        <div><span>数据有效</span><strong id="hub-online-count">0</strong></div>
+        <div><span>环境数据源</span><strong id="hub-environment-count">0</strong></div>
+        <div><span>等待更新</span><strong id="hub-stale-count">0</strong></div>
+      </div>
+
+      <details class="home-section hub-data-management" id="hub-data-management">
+        <summary><span>数据管理 <small id="hub-storage-summary">查看保存与备份状态</small></span><span class="status-pill" id="hub-storage-pill">待查看</span></summary>
+        <div class="section-heading compact">
+          <div><p class="eyebrow">安心记录 · 有据可查</p><h2>存储与数据保障</h2></div>
+          <button class="secondary-button" id="hub-storage-refresh" type="button">刷新状态</button>
+        </div>
+        <p class="hub-storage-message" id="hub-storage-message" role="status">打开数据页后会读取存储状态。</p>
+        <div class="hub-storage-grid">
+          <div><span>已保存记录</span><strong id="hub-storage-events">—</strong><small id="hub-storage-resources">等待统计</small></div>
+          <div><span>存储占用</span><strong id="hub-storage-size">—</strong><small id="hub-storage-space">含待写入数据</small></div>
+          <div><span>最近成功备份</span><strong id="hub-storage-backup">—</strong><small id="hub-storage-backup-note">等待备份信息</small></div>
+        </div>
+        <dl class="hub-storage-facts">
+          <div><dt>实际记录范围</dt><dd id="hub-storage-coverage">—</dd></div>
+          <div><dt>历史保留规则</dt><dd id="hub-storage-retention">—</dd></div>
+          <div><dt>备份保留规则</dt><dd id="hub-storage-backup-policy">—</dd></div>
+          <div><dt>最近维护</dt><dd id="hub-storage-maintenance">—</dd></div>
+          <div><dt>采样状态</dt><dd id="hub-storage-sampling">等待设备状态</dd></div>
+        </dl>
+      </details>
+
+      <div class="hub-browse-toolbar hub-filters" role="group" aria-label="筛选数据源">
+        <label>房间<select id="hub-filter-room"><option value="all">全部房间</option></select></label>
+        <label>搜索<input id="hub-filter-search" type="search" maxlength="80" placeholder="搜索设备或位置"></label>
+        <details class="hub-browse-advanced"><summary>更多筛选</summary><div>
+          <label>用途<select id="hub-filter-purpose"><option value="all">全部用途</option><option value="telemetry">监测指标</option><option value="state">运行状态</option><option value="setting">设备配置</option><option value="identity">设备档案</option><option value="usage">用量与进度</option><option value="records">事件与记录</option></select></label>
+          <label>类型<select id="hub-filter-kind"><option value="all">全部类型</option><option value="agent">智能助理</option><option value="sensor">传感器</option><option value="device">家用设备</option><option value="service">服务</option><option value="system">系统</option></select></label>
+        </div></details>
+      </div>
+
+      <div class="hub-layout">
+        <section class="home-section">
+          <div class="section-heading compact">
+            <div><p class="eyebrow">按房间 · 按设备</p><h2>设备运行与数据源</h2></div>
+          </div>
+          <div class="hub-resource-list" id="hub-resource-list"></div>
+          <div class="empty-state" id="hub-resource-empty">
+            <strong>暂无数据源</strong>
+            <span>已授权的环境设备会自动采样。也可以接入传感器或其他服务。</span>
+          </div>
+          <div class="empty-state" id="hub-resource-filter-empty" hidden>
+            <strong>没有匹配的资源</strong>
+            <span>试试更换类型或搜索关键词。</span>
+          </div>
+        </section>
+
+        <details class="home-section hub-activity-details">
+          <summary>最近更新与事件</summary>
+          <div class="section-heading compact">
+            <div><p class="eyebrow">数据动态</p><h2>最近更新</h2></div>
+          </div>
+          <div class="audit-list" id="hub-event-list" aria-live="polite"></div>
+          <div class="empty-state" id="hub-event-empty">
+            <strong>暂无事件</strong>
+            <span>数据源上报状态后，事件会实时出现在这里。</span>
+          </div>
+        </details>
+      </div>
+
+      <section class="home-section hub-detail" id="hub-detail" hidden>
+        <div class="section-heading compact">
+          <div><p class="eyebrow">状态与历史</p><h2 id="hub-detail-title">资源详情</h2></div>
+          <div class="hub-detail-actions">
+            <button class="secondary-button" id="hub-detail-control" type="button" hidden>控制设备</button>
+            <span class="status-pill" id="hub-detail-state-pill" aria-live="polite">—</span>
+            <span id="hub-detail-id">—</span>
+            <button class="icon-button small-icon" id="hub-detail-close" type="button" title="关闭详情" aria-label="关闭资源详情">×</button>
+          </div>
+        </div>
+        <p class="hub-subheading" id="hub-detail-time">当前状态</p>
+        <div class="hub-category-tabs" id="hub-category-tabs" role="group" aria-label="按数据内容浏览"></div>
+        <div class="hub-diagnostic-summary" id="hub-diagnostic-summary" aria-label="读取情况摘要"></div>
+        <p id="hub-layer-counts" class="hub-field-count"></p>
+        <div class="hub-detail-grid">
+          <div class="hub-typed-content">
+            <section id="hub-measurements-section" data-content-group="measurements"><div class="hub-type-heading"><h3>环境与测量</h3><span>带单位的实际读数</span></div><div class="hub-state-grid" id="hub-state-grid"></div></section>
+            <section id="hub-usage-section" data-content-group="usage"><div class="hub-type-heading"><h3>用量与进度</h3><span>区分当前数量与累计记录</span></div><div class="hub-state-grid" id="hub-usage-grid"></div></section>
+            <section id="hub-operating-states" class="hub-operating-states" data-content-group="states"></section>
+          </div>
+          <div>
+            <div class="hub-chart-controls">
+              <label>历史指标<select id="hub-history-metric" aria-label="选择历史指标"></select></label>
+              <label>时间范围<select id="hub-history-hours" aria-label="选择历史时间范围"><option value="1">最近 1 小时</option><option value="4">最近 4 小时</option><option value="24" selected>最近 24 小时</option><option value="168">最近 7 天</option><option value="720">最近 30 天</option></select></label>
+            </div>
+            <div id="hub-chart" class="hub-chart" aria-live="polite"></div>
+            <p class="hub-history-meta" id="hub-history-meta"></p>
+            <button class="secondary-button hub-history-more" id="hub-history-more" type="button" hidden>加载更早记录</button>
+            <details class="hub-sample-details"><summary>查看最近 60 条采样记录</summary>
+            <div class="hub-history-list" id="hub-history-list"></div>
+            </details>
+          </div>
+        </div>
+        <details class="hub-secondary-section" id="hub-settings-section" data-content-group="settings"><summary>可调设置 <span id="hub-settings-count"></span></summary><p class="hub-muted">这里显示已读取的设置值。<button class="text-button" id="hub-settings-control" type="button" hidden>前往设备控制 →</button></p><div id="hub-settings-grid" class="hub-value-list"></div></details>
+        <details class="hub-secondary-section" id="hub-records-section" data-content-group="records"><summary>事件与记录 <span id="hub-records-count"></span></summary><p class="hub-muted">列表按记录分组，展开查看明细。</p><div id="hub-records-grid" class="hub-record-list"></div></details>
+        <details class="hub-secondary-section" id="hub-identity-section" data-content-group="profile"><summary>设备档案 <span id="hub-identity-count"></span></summary><p class="hub-muted">型号、编号、版本和时间信息集中保存；尚未明确用途的数值也在这里查看。</p><div id="hub-identity-grid" class="hub-value-list"></div></details>
+        <details class="hub-field-dictionary hub-secondary-section" id="hub-field-advanced">
+          <summary>完整字段与读取诊断 <span id="hub-advanced-count"></span></summary>
+          <div class="section-heading compact">
+            <div><p class="eyebrow">所有生态 · 统一字段</p><h3 id="hub-field-title">字段与读取情况</h3></div>
+            <span id="hub-field-count" class="hub-field-count"></span>
+          </div>
+          <p class="hub-field-help">读取情况独立于内容分类。这里保留完整字段、来源和服务反馈，便于定位缺测、过期或不支持的读数。</p>
+          <div class="hub-field-filters" role="group" aria-label="筛选数据字段">
+            <label>读取情况<select id="hub-field-status"><option value="all">全部字段</option><option value="available">当前有读数</option><option value="unavailable">待更新或无法读取</option><option value="attention">读数缺失或过期</option><option value="stale">读数已过期</option><option value="unsupported">接口不支持</option><option value="not_readable">事件与动作字段</option><option value="sensitive">已隐藏的敏感字段</option></select></label>
+            <label>技术类型<select id="hub-field-type"><option value="all">全部数据类型</option></select></label>
+            <label>数据来源<select id="hub-field-source"><option value="all">全部来源</option></select></label>
+            <label>字段用途<select id="hub-field-role"><option value="all">全部字段用途</option></select></label>
+            <label>搜索字段<input id="hub-field-search" type="search" maxlength="100" placeholder="名称、字段或含义"></label>
+          </div>
+          <div class="hub-field-list" id="hub-field-list"></div>
+        </details>
+      </section>
+    </section>
+
+    <section class="view" id="view-health" aria-labelledby="health-page-title">
+      <div class="page-head">
+        <div><p class="eyebrow">独立健康中心 · 只读联接</p><h1 id="health-page-title">健康联接</h1><p class="page-description">身体的每一份记录，都值得被认真看见。</p></div>
+        <div class="health-head-actions">
+          <a id="health-origin-link" class="secondary-button" target="_blank" rel="noopener noreferrer" hidden>打开健康中心 ↗</a>
+          <button id="health-refresh" class="primary-button" type="button">刷新展示</button>
+        </div>
+      </div>
+      <section class="health-source-banner" aria-label="健康数据来源">
+        <div><strong>账号健康数据，由健康中心管理</strong><p>中枢只读展示账号的汇总记录，不将记录归属于某一块手表。健康记录、同步和设置在原健康中心维护，不会将健康数据发送给 AI。</p></div>
+        <span class="status-pill" id="health-source-pill">尚未读取</span>
+      </section>
+      <div class="health-source-status" role="status" aria-live="polite">
+        <p id="health-source-message">打开此页后读取健康中心的记录。</p>
+        <div><span id="health-upstream-time">源端最近更新：暂无</span><span id="health-fetched-time">中枢读取时间：暂无</span></div>
+      </div>
+      <div class="health-view-controls">
+        <label class="health-date-control">查看日期<input id="health-date" type="date" aria-label="健康记录日期"></label>
+        <button type="button" class="secondary-button" id="health-latest">最新记录</button>
+        <label>趋势范围<select id="health-days"><option value="7">最近 7 天</option><option value="30">最近 30 天</option></select></label>
+        <span id="health-selection-summary"></span>
+      </div>
+      <div class="health-empty" id="health-empty"><strong>正在准备健康视图</strong><p>只展示健康中心已保存的记录，缺测数据会明确标注。</p></div>
+      <div id="health-content" hidden>
+        <section class="health-section" aria-labelledby="health-daily-title">
+          <div class="section-heading compact"><div><p class="eyebrow">所选日期</p><h2 id="health-daily-title">每日概况</h2></div><span id="health-daily-date"></span></div>
+          <div class="health-metric-grid" id="health-daily-metrics"></div>
+        </section>
+        <div class="health-two-columns">
+          <section class="health-section" aria-labelledby="health-sleep-title">
+            <div class="section-heading compact"><div><p class="eyebrow">休息记录</p><h2 id="health-sleep-title">睡眠</h2></div></div>
+            <div id="health-sleep-summary"></div>
+            <div id="health-sleep-stages" class="health-sleep-stages"></div>
+          </section>
+          <section class="health-section" aria-labelledby="health-workout-title">
+            <div class="section-heading compact"><div><p class="eyebrow">活动记录</p><h2 id="health-workout-title">运动</h2></div><span id="health-workout-count"></span></div>
+            <div id="health-workouts" class="health-workout-list"></div>
+          </section>
+        </div>
+        <section class="health-section" aria-labelledby="health-trend-title">
+          <div class="section-heading compact"><div><p class="eyebrow">按日查看</p><h2 id="health-trend-title">记录趋势</h2></div><label class="health-trend-select">指标<select id="health-trend-metric" aria-label="健康趋势指标"></select></label></div>
+          <div id="health-trend-chart" class="health-trend-chart"></div>
+          <p id="health-trend-note" class="health-muted"></p>
+          <details class="health-record-details"><summary>查看每日记录</summary><div id="health-trend-records"></div></details>
+        </section>
+        <details class="health-section health-record-details" id="health-fields-section"><summary>来源字段与数据完整性</summary><p class="health-muted">展示健康中心提供的字段及缺测原因；字段值与原健康中心保持一致。</p><div id="health-field-list" class="hub-field-list"></div></details>
+      </div>
+    </section>
+
+    <section class="view" id="view-chat">
+      <div class="page-head">
+        <div><p class="eyebrow">中枢助手</p><h1>AI助手</h1><p class="page-description">控制家里的设备、读取中枢与健康数据，也可以随口问点什么。</p></div>
+        <button class="secondary-button" id="clear-chat">清空窗口</button>
+      </div>
+      <div class="chat-layout">
+        <section class="panel chat-panel">
+          <div class="chat-log" id="chat-log" aria-live="polite">
+            <div class="chat-message assistant"><span>AI</span><p>你好，我是家庭中枢的 AI 助手。可以让我开关设备、查询家中状态，或者看健康数据。</p></div>
+          </div>
+          <form class="chat-composer" id="chat-form">
+            <label class="visually-hidden" for="chat-prompt">输入你的问题</label>
+            <textarea id="chat-prompt" maxlength="1000" placeholder="输入你的问题，Enter 发送，Shift + Enter 换行…" required></textarea>
+            <button class="primary-button" type="submit" id="chat-send">发送</button>
+          </form>
+        </section>
+        <aside class="panel chat-side">
+          <p class="eyebrow">对话方式</p>
+          <div class="chat-mode" role="group" aria-label="对话方式">
+            <button type="button" class="chat-mode-option is-active" data-chat-mode="long" aria-pressed="true">长对话</button>
+            <button type="button" class="chat-mode-option" data-chat-mode="short" aria-pressed="false">短对话</button>
+          </div>
+          <p class="chat-mode-note" id="chat-mode-note">记住前几轮，可以接着聊。</p>
+          <p class="eyebrow">快捷测试</p>
+          <div class="quick-prompts">
+            <button data-prompt="现在客厅的灯是开着的吗">查设备状态</button>
+            <button data-prompt="我这周睡得怎么样">看健康数据</button>
+            <button data-prompt="你是什么模型，能做哪些事">你能做什么</button>
+          </div>
+          <section class="automation-mini" aria-labelledby="automation-mini-title">
+            <div class="automation-mini-head"><p class="eyebrow" id="automation-mini-title">自动化任务</p><button class="text-button" id="automation-refresh" type="button">刷新</button></div>
+            <div id="automation-list" class="automation-list"><span class="muted">暂无任务</span></div>
+          </section>
+          <dl class="summary-list compact-list">
+            <div><dt>模型耗时</dt><dd id="chat-ai-latency">暂无</dd></div>
+            <div><dt>对话上下文</dt><dd id="chat-answer-limit">—</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="view-preferences">
+      <div class="page-head">
+        <div><p class="eyebrow">交互行为</p><h1>偏好设置</h1><p class="page-description">按照你的习惯，让每一次互动更合心意。</p></div>
+      </div>
+      <form id="behavior-form">
+        <section class="settings-band">
+          <div class="settings-title">
+            <span>01</span>
+            <div><h2>语音触发</h2><p>逗号分隔多个触发词</p></div>
+          </div>
+          <div class="form-grid three">
+            <label><span>触发词</span><input id="behavior-keywords" name="trigger_keywords" placeholder="请问,帮我"></label>
+            <label><span>回答最大字数</span><input id="behavior-answer-limit" name="answer_max_chars" type="number" min="40" max="500"></label>
+            <label><span>连续对话超时（秒）</span><input id="behavior-timeout" name="continuous_timeout_seconds" type="number" min="5" max="300"></label>
+          </div>
+        </section>
+        <section class="settings-band">
+          <div class="settings-title">
+            <span>02</span>
+            <div><h2>音频接管</h2><p>控制小爱原生回答压制</p></div>
+          </div>
+          <div class="form-grid">
+            <label><span>压制原生回答</span><select id="behavior-mute" name="mute_xiaoai"><option value="true">开启</option><option value="false">关闭</option></select></label>
+          </div>
+        </section>
+        <div class="form-actions">
+          <button class="primary-button" type="submit" id="save-behavior">保存偏好</button>
+          <span id="behavior-result" class="action-result"></span>
+        </div>
+      </form>
+
+      <section class="panel diagnostics-panel">
+        <div class="section-heading compact">
+          <div><p class="eyebrow">运行诊断</p><h2>轮次控制器</h2></div>
+        </div>
+        <div class="diagnostic-grid">
+          <dl class="summary-list">
+            <div><dt>当前状态</dt><dd id="diag-audio-state">—</dd></div>
+            <div><dt>模型耗时</dt><dd id="diag-ai-latency">—</dd></div>
+            <div><dt>轮次总耗时</dt><dd id="diag-turn-latency">—</dd></div>
+            <div><dt>已打断轮次</dt><dd id="diag-cancelled">0</dd></div>
+            <div><dt>暂停小爱次数</dt><dd id="diag-pauses">0</dd></div>
+          </dl>
+          <div class="diagnostic-actions">
+            <button class="secondary-button" id="stop-turn">中断当前回答</button>
+            <button class="secondary-button" id="clear-context">清空对话上下文</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog class="console-dialog connect-dialog" id="gateway-connect-dialog" aria-labelledby="connect-title">
+    <div class="connect-dialog-content">
+      <div class="dialog-head"><div><p class="eyebrow">CONNECT YOUR CLIENT</p><h2 id="connect-title">连接你的客户端</h2><p class="dialog-note">选好协议，复制地址和模型 ID 即可接入。</p></div><button class="icon-button" id="connect-close" type="button" aria-label="关闭接入指南">×</button></div>
+      <div class="connect-tabs" role="tablist" aria-label="客户端协议">
+        <button id="connect-tab-openai" role="tab" aria-controls="connect-panel" aria-selected="true" data-connect-protocol="openai" type="button">OpenAI</button>
+        <button id="connect-tab-anthropic" role="tab" aria-controls="connect-panel" aria-selected="false" tabindex="-1" data-connect-protocol="anthropic" type="button">Anthropic</button>
+        <button id="connect-tab-responses" role="tab" aria-controls="connect-panel" aria-selected="false" tabindex="-1" data-connect-protocol="responses" type="button">Responses</button>
+      </div>
+      <div id="connect-panel" role="tabpanel" aria-labelledby="connect-tab-openai">
+        <p id="connect-description" class="connect-description"></p>
+        <div class="connect-value"><span>Base URL</span><code id="connect-base">—</code><button class="icon-button" data-copy="connect-base" aria-label="复制接入地址" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg></button></div>
+        <div class="connect-value"><span>API Key</span><code id="connect-key">—</code><small id="connect-key-note"></small></div>
+        <label class="connect-model-label" for="connect-model-select">调用模型</label>
+        <select id="connect-model-select" class="console-input"><option value="hub-active">跟随面板默认模型 · hub-active</option></select>
+        <div class="connect-value"><span>Model ID</span><code id="connect-model-id">hub-active</code><button class="icon-button" data-copy="connect-model-id" aria-label="复制模型 ID" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg></button></div>
+        <p class="dialog-note">选择具体模型后固定调用该模型；使用 hub-active 则跟随面板切换。</p>
+        <div class="connect-code-head"><span>调用示例 · cURL（Bash）</span><button class="secondary-button" data-copy="connect-code" type="button">复制示例</button></div>
+        <pre class="connect-code"><code id="connect-code"></code></pre>
+        <details class="connect-boundaries"><summary>协议兼容范围</summary><p>支持双向文本、图片、自定义工具和流式转换。图片需要启用模型的多模态设置；思考签名、内置工具与服务端对话状态依赖提供方原生支持。</p><p>Responses 优先使用原生接口；上游明确不支持时可进行无状态适配。</p></details>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="console-dialog" id="provider-dialog" aria-labelledby="provider-dialog-title">
+    <form id="model-provider-form">
+      <div class="dialog-head">
+        <div><p class="eyebrow">上游配置</p><h2 id="provider-dialog-title">新增提供方</h2></div>
+        <button class="icon-button" id="provider-dialog-close" type="button" aria-label="关闭">×</button>
+      </div>
+      <input type="hidden" id="model-provider-id">
+      <div class="dialog-grid">
+        <label><span>名称</span><input id="model-provider-name" required maxlength="80" placeholder="例如：公司 OpenAI"></label>
+        <label><span>协议</span><select id="model-provider-protocol"><option value="openai">OpenAI 兼容</option><option value="anthropic">Anthropic</option></select></label>
+        <label class="wide"><span>API 地址（Base URL）</span><input id="model-provider-url" type="url" required placeholder="https://api.example.com/v1"></label>
+        <label class="wide"><span>API Key（留空保持原值）</span><input id="model-provider-key" type="password" autocomplete="new-password" placeholder="保存后不回显，只显示“已保存”"></label>
+        <label class="wide"><span>代理（留空 = 直连）</span><input id="model-provider-proxy" placeholder="例如 http://host.docker.internal:17892"></label>
+        <label class="wide"><span>模型列表（逗号或换行分隔）</span><textarea id="model-provider-models" rows="5" placeholder="model-a, model-b"></textarea></label>
+        <label class="dialog-check"><input id="model-provider-enabled" type="checkbox" checked>启用这个提供方</label>
+      </div>
+      <div class="dialog-foot">
+        <span id="model-provider-result" class="action-result"></span>
+        <button class="secondary-button" type="button" id="provider-dialog-cancel">取消</button>
+        <button class="primary-button" type="submit" id="model-provider-save">保存提供方</button>
+      </div>
+      <p class="dialog-note" id="model-provider-hint">保存后可用「自动获取模型」读取上游 <code>/models</code> 列表。</p>
+    </form>
+  </dialog>
+
+  <dialog class="console-dialog" id="model-add-dialog" aria-labelledby="model-add-title">
+    <form id="model-add-form">
+      <div class="dialog-head">
+        <div><p class="eyebrow">手工录入</p><h2 id="model-add-title">添加模型</h2></div>
+        <button class="icon-button" id="model-add-close" type="button" aria-label="关闭">×</button>
+      </div>
+      <p class="dialog-note" id="model-add-target">—</p>
+      <label class="dialog-block"><span>加入哪个渠道</span><select id="model-add-channel"></select></label>
+      <label class="dialog-block"><span>模型 ID（逗号或换行分隔）</span><textarea id="model-add-ids" rows="6" placeholder="model-a&#10;provider/model-b"></textarea></label>
+      <div class="dialog-foot">
+        <span id="model-add-result" class="action-result"></span>
+        <button class="secondary-button" type="button" id="model-add-cancel">取消</button>
+        <button class="primary-button" type="submit">加入列表</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js?v=__ASSET_VERSION__" defer></script>
+</body>
+</html>

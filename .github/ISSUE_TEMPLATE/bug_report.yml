@@ -1,0 +1,17 @@
+name: Bug report
+description: Report a reproducible problem using synthetic or redacted data.
+body:
+  - type: markdown
+    attributes:
+      value: Do not upload credentials, cookies, databases, health records or real device identifiers. Report security vulnerabilities privately.
+  - type: input
+    id: version
+    attributes: {label: Version and deployment method}
+    validations: {required: true}
+  - type: textarea
+    id: reproduce
+    attributes: {label: Steps to reproduce, description: Include expected and actual behavior.}
+    validations: {required: true}
+  - type: textarea
+    id: environment
+    attributes: {label: Environment, description: "Browser, OS, device model if relevant; omit private addresses and identifiers."}

@@ -1,0 +1,16 @@
+region: cn
+paths:
+  db: /var/lib/mi-health-hub/health.db
+  raw: /var/lib/mi-health-hub/raw
+  output: /var/lib/mi-health-hub/output
+  backup: /var/lib/mi-health-hub/backup
+server:
+  api_host: 0.0.0.0
+  api_port: 8321
+  trust_private: false
+schedule:
+  timezone: Asia/Shanghai
+profile:
+  age:
+  max_hr:
+  weight_kg:

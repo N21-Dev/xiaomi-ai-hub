@@ -1,0 +1,10 @@
+FROM python:3.11-slim-bookworm
+ARG SERVICE
+WORKDIR /install
+COPY services/${SERVICE}/pyproject.toml services/${SERVICE}/README.md ./
+COPY services/${SERVICE}/src ./src
+RUN python -m pip install --no-cache-dir --upgrade pip setuptools wheel \
+    && python -m pip install --no-cache-dir . pytest pytest-asyncio
+ENV PYTHONDONTWRITEBYTECODE=1
+WORKDIR /workspace
+USER 10001:10001

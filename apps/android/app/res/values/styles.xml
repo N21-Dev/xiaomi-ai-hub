@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 米家式浅色：浅灰底、白卡片、深色状态栏文字 -->
+    <style name="HubTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">#F5F6F8</item>
+        <item name="android:colorPrimary">#F5F6F8</item>
+        <item name="android:colorPrimaryDark">#F5F6F8</item>
+        <item name="android:colorAccent">#00B389</item>
+        <item name="android:statusBarColor">#F5F6F8</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
+        <item name="android:textColorPrimary">#1B1E23</item>
+        <item name="android:textColorSecondary">#6B7280</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+</resources>

@@ -1,0 +1,38 @@
+[project]
+name = "mi-health-hub"
+version = "0.1.0"
+description = "小米手表健康数据自托管分析平台：从小米健康云同步到本地，做指标分析并以 Web 看板呈现"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+    "httpx>=0.27",
+    "PyYAML>=6.0",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "APScheduler>=3.10",
+    "pydantic>=2.6",
+    "tzdata>=2024.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+]
+
+[project.scripts]
+mi-health = "mi_health_hub.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mi_health_hub = ["store/*.sql", "web/*", "web/vendor/*", "licenses/*.txt", "licenses/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

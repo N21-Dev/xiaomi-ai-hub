@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#193b33">
+  <meta name="robots" content="noindex, nofollow">
+  <title>登录 · AI 中枢</title>
+  <link rel="stylesheet" href="/app.css?v=__ASSET_VERSION__">
+  <script src="/login.js?v=__ASSET_VERSION__" defer></script>
+</head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-story" aria-labelledby="login-story-title">
+      <div class="login-brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3Z"/><path d="M8 16v-4m4 6v-8m4 6v-4"/></svg><span>AI 中枢<small>AI HOME PLATFORM</small></span></div>
+      <div class="login-story-copy"><p class="login-eyebrow">你的家，由你掌握</p><h1 id="login-story-title">每一处连接，<br>都为日常而来。</h1><p>从一盏灯到一次对话，<br>让设备、模型与数据，在这里相连。</p><ul class="login-features"><li>统一管理模型与设备</li><li>按需连接音箱与健康服务</li><li>数据保存在你的服务器</li></ul></div>
+      <div class="login-orbit" aria-hidden="true"><span></span><span></span><span></span><i>⌂</i></div>
+      <p class="login-story-footer">声音 · 设备 · 数据</p>
+    </section>
+    <section class="login-card" aria-labelledby="login-title">
+      <div><p class="eyebrow">欢迎回来</p><h2 id="login-title">登录你的中枢</h2><p class="login-description">使用管理员账号，进入家庭工作空间。</p></div>
+      <p id="panel-setup-status" class="login-setup" role="status" aria-live="polite" hidden></p>
+      <form id="panel-login-form">
+        <label for="panel-username">管理员账号</label>
+        <input id="panel-username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="80" aria-describedby="panel-login-error" required>
+        <label for="panel-password">密码</label>
+        <div class="login-password"><input id="panel-password" name="password" type="password" autocomplete="current-password" maxlength="256" aria-describedby="panel-login-error" required><button type="button" id="panel-password-toggle" aria-label="显示密码" aria-pressed="false">显示</button></div>
+        <p id="panel-caps-lock" class="login-caps-lock" role="status" hidden>大写锁定已开启</p>
+        <p id="panel-login-error" class="login-error" role="alert" aria-live="polite" hidden></p>
+        <button class="primary-button login-submit" id="panel-login-submit" type="submit">登录 <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="login-footnote">只有登录后，才能访问设备、对话和管理设置。</p>
+      <details class="login-help"><summary>首次使用或忘记密码</summary><p>本项目没有默认账号或密码。由服务器管理员运行 <code>python3 ops/setup.py admin</code> 创建或重设账号，再刷新此页。已有设备和数据会保留。</p><a href="https://github.com/N21-Dev/xiaomi-ai-hub/blob/main/docs/DEPLOYMENT.md" target="_blank" rel="noreferrer">查看部署与账号帮助 ↗</a></details>
+      <noscript><p class="login-error">请启用浏览器 JavaScript 后登录。</p></noscript>
+    </section>
+  </main>
+</body>
+</html>

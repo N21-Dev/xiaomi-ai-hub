@@ -1,0 +1,79 @@
+services:
+  xiaomi-ai-bridge:
+    image: ${BRIDGE_IMAGE:-xiaomi-ai-hub-bridge:local}
+    build:
+      context: ./services/xiaomi-ai-bridge
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.11-slim-bookworm}
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
+    user: "${PUID:-10001}:${PGID:-10001}"
+    init: true
+    restart: unless-stopped
+    stop_grace_period: 180s
+    env_file: ./config/bridge.env
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      STATE_DIR: /data
+      HEALTH_HOST: 0.0.0.0
+      HEALTH_PORT: 8080
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${PANEL_PORT:-18765}:8080"
+    volumes:
+      - ./data/bridge:/data
+    secrets:
+      - health-api-key
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=3)"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "3"}
+
+  mi-health-hub:
+    profiles: [health]
+    image: ${HEALTH_IMAGE:-xiaomi-ai-hub-health:local}
+    build:
+      context: ./services/mi-health-hub
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.11-slim-bookworm}
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
+    user: "${PUID:-10001}:${PGID:-10001}"
+    init: true
+    restart: unless-stopped
+    env_file: ./config/health.env
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      MI_API_HOST: 0.0.0.0
+      MI_CONFIG: /config/health.yaml
+      MI_DB_PATH: /var/lib/mi-health-hub/health.db
+      MI_RAW_DIR: /var/lib/mi-health-hub/raw
+      MI_OUTPUT_DIR: /var/lib/mi-health-hub/output
+      MI_BACKUP_DIR: /var/lib/mi-health-hub/backup
+      MI_CREDENTIALS_FILE: /var/lib/mi-health-hub/health-credentials.json
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${HEALTH_PORT:-8321}:8321"
+    volumes:
+      - ./data/health:/var/lib/mi-health-hub
+      - ./config/health.yaml:/config/health.yaml:ro
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8321/healthz', timeout=3)"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    logging:
+      driver: json-file
+      options: {max-size: 10m, max-file: "3"}
+
+secrets:
+  health-api-key:
+    file: ./config/health-api-key

@@ -1,0 +1,35 @@
+services:
+  bridge-tests:
+    build:
+      context: .
+      dockerfile: ops/Dockerfile.tests
+      args: {SERVICE: xiaomi-ai-bridge}
+    entrypoint: [python]
+    command: [-m, unittest, discover, -s, tests, -q]
+    working_dir: /workspace
+    network_mode: none
+    read_only: true
+    user: "10001:10001"
+    environment: {PYTHONPATH: /workspace/src, PYTHONDONTWRITEBYTECODE: "1", STATE_DIR: /tmp/test-state}
+    volumes: ["./services/xiaomi-ai-bridge:/workspace:ro"]
+    tmpfs: ["/tmp:rw,nosuid,size=256m"]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  health-tests:
+    build:
+      context: .
+      dockerfile: ops/Dockerfile.tests
+      args: {SERVICE: mi-health-hub}
+    entrypoint: [python]
+    command: [-m, pytest, -q, -p, "no:cacheprovider", tests]
+    working_dir: /workspace
+    network_mode: none
+    read_only: true
+    user: "10001:10001"
+    environment: {PYTHONPATH: /workspace/src, PYTHONDONTWRITEBYTECODE: "1", MI_AI_AUTO_AFTER_SYNC: "false"}
+    volumes: ["./services/mi-health-hub:/workspace:ro"]
+    tmpfs:
+      - /tmp:rw,nosuid,size=256m
+      - /var/lib/mi-health-hub:rw,nosuid,size=64m,uid=10001,gid=10001,mode=0700
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]

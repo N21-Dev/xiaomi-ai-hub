@@ -1,0 +1,10 @@
+.git
+.env
+data
+archives
+**/__pycache__
+**/.pytest_cache
+**/node_modules
+**/*.sqlite3
+**/*.jks
+**/*.apk

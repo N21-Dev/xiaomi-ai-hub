@@ -22,10 +22,6 @@ jobs:
       - if: matrix.service == 'mi-health-hub'
         run: python -m pytest -q services/mi-health-hub/tests
         env:
-          MI_DB_PATH: /tmp/health-tests/health.db
-          MI_RAW_DIR: /tmp/health-tests/raw
-          MI_OUTPUT_DIR: /tmp/health-tests/output
-          MI_BACKUP_DIR: /tmp/health-tests/backup
           MI_AI_AUTO_AFTER_SYNC: "false"
   secret-scan:
     runs-on: ubuntu-latest

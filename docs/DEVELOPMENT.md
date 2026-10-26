@@ -12,6 +12,8 @@ docker compose -f compose.dev.yaml run --rm health-tests
 
 两套测试禁网、只读挂载源码，使用临时可写目录。中枢协议测试中的官方 SDK 测试为可选项，未安装时会明确跳过。
 
+健康测试的 `conftest.py` 为每个用例隔离数据库、原始目录、输出、备份、访问日志与凭据文件；普通非 root 用户也不需要创建 `/var/lib` 下的目录。勿在测试中移除这些隔离边界或指向真实运行目录。
+
 初始化工具的独立测试：`python3 -m unittest discover -s tests -q`。它检查配置不被覆盖、密钥随机且不输出、私有文件权限及符号链接边界，使用临时目录。
 
 本机开发时可分别建立虚拟环境，在对应服务目录安装 `pip install -e .`；健康服务安装 `pip install -e '.[dev]'`。运行中枢 `python -m unittest discover -s tests -q` 和健康 `python -m pytest -q`。
